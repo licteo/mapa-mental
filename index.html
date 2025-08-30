@@ -1,0 +1,97 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindMap Interactivo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <h1>MindMap</h1>
+            <div class="controls">
+                <button class="btn primary" id="addNodeBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Añadir Nodo
+                </button>
+                <button class="btn secondary" id="resetBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 12a9 9 0 1 1 9 9"></path>
+                        <path d="M3 12h6m-3-3 3 3-3-3z"></path>
+                    </svg>
+                    Reiniciar
+                </button>
+                <button class="btn secondary" id="saveBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    Guardar
+                </button>
+            </div>
+            <div class="node-styles">
+                <h3>Estilos</h3>
+                <div class="color-picker">
+                    <label>Color</label>
+                    <input type="color" id="nodeColor" value="#6366f1">
+                </div>
+                <div class="size-slider">
+                    <label>Tamaño</label>
+                    <input type="range" id="nodeSize" min="40" max="120" value="80">
+                </div>
+            </div>
+        </nav>
+
+        <main class="mindmap-container">
+            <svg id="mindmap" viewBox="0 0 1200 800">
+                <defs>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.8" />
+                        <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.8" />
+                    </linearGradient>
+                </defs>
+                <g id="connections"></g>
+                <g id="nodes"></g>
+            </svg>
+        </main>
+
+        <div class="context-menu" id="contextMenu">
+            <button class="menu-item" data-action="edit">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                Editar
+            </button>
+            <button class="menu-item" data-action="delete">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                Eliminar
+            </button>
+            <button class="menu-item" data-action="addChild">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Añadir Hijo
+            </button>
+        </div>
+    </div>
+
+    <script type="module" src="mindmap.js"></script>
+</body>
+</html>

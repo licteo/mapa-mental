@@ -1,0 +1,263 @@
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #8b5cf6;
+    --background: #0f0f10;
+    --surface: #1a1a1b;
+    --surface-elevated: #27272a;
+    --text: #fafafa;
+    --text-secondary: #a1a1aa;
+    --border: #3f3f46;
+    --success: #22c55e;
+    --danger: #ef4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    overflow: hidden;
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 280px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sidebar h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn.primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn.primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.btn.secondary {
+    background: var(--surface-elevated);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.btn.secondary:hover {
+    background: var(--border);
+    color: var(--text);
+}
+
+.node-styles {
+    margin-top: auto;
+}
+
+.node-styles h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+.color-picker, .size-slider {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+input[type="color"] {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.mindmap-container {
+    flex: 1;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+}
+
+#mindmap {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
+#mindmap:active {
+    cursor: grabbing;
+}
+
+.node {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.node rect {
+    fill: var(--surface-elevated);
+    stroke: var(--primary);
+    stroke-width: 2;
+    rx: 8;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.node:hover rect {
+    filter: drop-shadow(0 8px 16px rgba(99, 102, 241, 0.3));
+}
+
+.node.selected rect {
+    stroke: var(--secondary);
+    stroke-width: 3;
+}
+
+.node text {
+    fill: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+    user-select: none;
+}
+
+.node-input {
+    position: absolute;
+    background: var(--surface-elevated);
+    color: var(--text);
+    border: 1px solid var(--primary);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-family: inherit;
+    z-index: 1000;
+    outline: none;
+}
+
+.connection {
+    fill: none;
+    stroke: url(#lineGradient);
+    stroke-width: 2;
+    opacity: 0.8;
+}
+
+.context-menu {
+    position: absolute;
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 1000;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 0.875rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    transition: background 0.2s ease;
+}
+
+.menu-item:hover {
+    background: var(--surface);
+}
+
+@keyframes nodeAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.node {
+    animation: nodeAppear 0.3s ease-out;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 240px;
+    }
+    
+    .btn {
+        font-size: 0.8125rem;
+    }
+}
